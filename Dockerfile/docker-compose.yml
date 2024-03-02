@@ -49,6 +49,7 @@ services:
       MYSQL_PASSWORD: 'pwd'
       #password for root access
       MYSQL_ROOT_PASSWORD: 'root'
+    command: --bind-address='0.0.0.0'
     ports:
       #ports exposed
       - '3306:3306'
