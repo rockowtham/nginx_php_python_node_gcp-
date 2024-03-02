@@ -3,7 +3,7 @@ version: '3.9'
 services:
   web:
     image: nginx:latest
-    container_name: nginx_container
+    container_name: nginx_container1
     ports: 
       - '80:80'
     volumes:
@@ -22,7 +22,7 @@ services:
 
   php:
     image: kumargowtham/nginx_php_python_node:v6
-    container_name: php_container
+    container_name: php_container1
     volumes:
       - /root/code/:/var/www/
       # - /d/projects/code/work/php/:/var/www/
@@ -39,7 +39,7 @@ services:
   #     - /d/projects/study/react/ecom3-ui:/app
   db:
     image: mysql:8.0
-    container_name: db_container
+    container_name: db_container1
     restart: always
     environment: 
       MYSQL_DATABASE: 'db'
