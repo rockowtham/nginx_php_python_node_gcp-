@@ -85,7 +85,17 @@ services:
     networks:
       - mynetwork
   
- 
+  cron:
+    build: ./cron
+    image: cron
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workdir:ro
+    depends_on:
+      - web
+      - certbot
+    networks:
+      - mynetwork
 
   # mongo:
 
