@@ -80,7 +80,7 @@ services:
     image: certbot/certbot
     restart: unless-stopped
     depends_on:
-      - nginx
+      - web
     volumes:
       # - /etc/nginx/conf.d
       - /etc/letsencrypt
