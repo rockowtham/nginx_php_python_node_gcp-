@@ -76,6 +76,18 @@ services:
     networks:
       - mynetwork
 
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    depends_on:
+      - nginx
+    volumes:
+      # - /etc/nginx/conf.d
+      - /etc/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/bb_wp --email bestbuddiesstoreonline@gmail.com --agree-tos --no-eff-email --force-renewal -d bbkart.co.in -d www.bbkart.co.in
+    networks:
+      - mynetwork
+
   # mongo:
 
   # redis:
