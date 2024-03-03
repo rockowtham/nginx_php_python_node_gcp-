@@ -77,14 +77,25 @@ services:
       - mynetwork
 
   certbot:
-    image: certbot/certbot
-    restart: unless-stopped
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+    command: certbot --nginx -d www.bbkart.co.in
+    networks:
+      - mynetwork
+  
+  cron:
+    build: ./cron
+    image: cron
+    environment:
+      COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workdir:ro
     depends_on:
       - web
-    volumes:
-      # - /etc/nginx/conf.d
-      - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/ssl/:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/var/www/bb_wp --email bestbuddiesstoreonline@gmail.com --agree-tos --no-eff-email --force-renewal -d bbkart.co.in -d www.bbkart.co.in
+      - certbot
     networks:
       - mynetwork
 
@@ -94,6 +105,11 @@ services:
 #Names our volumes
 volumes:
   my-db:
+  nginx_ssl:
+    external: true
+  certbot_certs:
+    external: true
+  wpsite_certbot:
 
 networks:
   mynetwork:
