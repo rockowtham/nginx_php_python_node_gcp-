@@ -85,19 +85,7 @@ services:
     networks:
       - mynetwork
   
-  cron:
-    build: ./cron
-    image: cron
-    environment:
-      COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./:/workdir:ro
-    depends_on:
-      - web
-      - certbot
-    networks:
-      - mynetwork
+ 
 
   # mongo:
 
