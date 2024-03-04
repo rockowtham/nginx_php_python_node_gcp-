@@ -15,8 +15,8 @@ services:
       - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-enabled/
       - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      # - ./certbot/conf:/etc/letsencrypt
+      # - ./certbot/www:/var/www/certbot
       - /etc/letsencrypt/:/etc/letsencrypt/
     links:
       - php
