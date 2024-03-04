@@ -17,6 +17,7 @@ services:
       - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+      - /etc/letsencrypt/live/bbkart.co.in/:/etc/letsencrypt/live/bbkart.co.in/
     links:
       - php
     # network_mode: "host"
