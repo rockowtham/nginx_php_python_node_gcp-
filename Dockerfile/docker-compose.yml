@@ -84,8 +84,8 @@ services:
     container_name: certbot
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email bestbuddiesstoreonline@gmail.com -d bbkart.co.in --agree-tos
+      - ./certbot/www:/var/www/html
+    command: certonly --webroot -w /var/www/html --force-renewal --email bestbuddiesstoreonline@gmail.com -d bbkart.co.in --agree-tos
     links:
       - web
     networks:
