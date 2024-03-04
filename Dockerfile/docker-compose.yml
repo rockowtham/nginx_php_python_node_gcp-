@@ -17,7 +17,7 @@ services:
       - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-      - /etc/letsencrypt/live/bbkart.co.in/:/etc/letsencrypt/live/bbkart.co.in/
+      - /etc/letsencrypt/:/etc/letsencrypt/
     links:
       - php
     # network_mode: "host"
@@ -80,17 +80,17 @@ services:
     networks:
       - mynetwork
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes: 
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/html
-    command: certonly -v --webroot -w /var/www/html --force-renewal --email bestbuddiesstoreonline@gmail.com -d bbkart.co.in --agree-tos
-    links:
-      - web
-    networks:
-      - mynetwork
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes: 
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/www:/var/www/html
+  #   command: certonly -v --webroot -w /var/www/html --force-renewal --email bestbuddiesstoreonline@gmail.com -d bbkart.co.in --agree-tos
+  #   links:
+  #     - web
+  #   networks:
+  #     - mynetwork
   
   # cron:
   #   build: ./cron
