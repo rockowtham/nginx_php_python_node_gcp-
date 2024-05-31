@@ -9,13 +9,13 @@ services:
       - 443:443
     volumes:
     #D:\repository\docker\nginx_php_python_node\Dockerfile\docker-compose.yml
-      - /home/sujig20/code/:/var/www/
+      - /root/code/:/var/www/
       # - /d/projects/code/work/php/:/var/www/
      # - /d/projects/code/php/conffiles/dms_scm_config.php:/var/www/dms.mi.com/config/scm_config.php
-      - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-enabled/
-      - /home/sujig20/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
-      # - ./certbot/conf:/etc/letsencrypt
+      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-enabled/
+      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
+      # - ./certbot/conf:/etc/letsencry
       # - ./certbot/www:/var/www/certbot
       - /etc/letsencrypt/:/etc/letsencrypt/
     links:
@@ -28,7 +28,7 @@ services:
     image: kumargowtham/nginx_php_python_node:v6
     container_name: php_container1
     volumes:
-      - /home/sujig20/code/:/var/www/
+      - /root/code/:/var/www/
       # - /d/projects/code/work/php/:/var/www/
       # - /d/projects/code/php/conffiles/dms_scm_config.php:/var/www/dms.mi.com/config/scm_config.php
       # - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
