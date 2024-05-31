@@ -110,11 +110,11 @@ services:
 #Names our volumes
 volumes:
   my-db:
-  nginx_ssl:
-    external: true
-  certbot_certs:
-    external: true
-  wpsite_certbot:
+  # nginx_ssl:
+  #   external: true
+  # certbot_certs:
+  #   external: true
+  # wpsite_certbot:
 
 networks:
   mynetwork:
