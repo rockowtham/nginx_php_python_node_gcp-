@@ -77,6 +77,8 @@ services:
     restart: always
     ports:
       - 8081:80
+    volumes:
+      - ./conf/pma/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     networks:
       - mynetwork
 
