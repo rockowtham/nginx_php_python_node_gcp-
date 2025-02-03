@@ -1,26 +1,18 @@
-version: '3.9'
-
 services:
   web:
     image: nginx:latest
     container_name: nginx_container1
     ports: 
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
-    #D:\repository\docker\nginx_php_python_node\Dockerfile\docker-compose.yml
-      - /root/code/:/var/www/
-      # - /d/projects/code/work/php/:/var/www/
-     # - /d/projects/code/php/conffiles/dms_scm_config.php:/var/www/dms.mi.com/config/scm_config.php
-      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-enabled/
-      - /root/nginx_php_python_node_gcp-/Dockerfile/conf/nginx/sites-available/:/etc/nginx/conf.d/vhosts/sites-available/
-      # - ./certbot/conf:/etc/letsencry
-      # - ./certbot/www:/var/www/certbot
-      - /etc/letsencrypt/:/etc/letsencrypt/
+      - ${FOLDER_PATH}/Dockerfile/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ${FOLDER_PATH}/Dockerfile/conf/nginx/sites-available:/etc/nginx/conf.d/vhosts/sites-enabled/
+      - ${FOLDER_PATH}/Dockerfile/conf/nginx/sites-available:/etc/nginx/conf.d/vhosts/sites-available/
+      - ${PHP_CODE_PATH}/:/var/www/
+      # - /etc/letsencrypt:/etc/letsencrypt/
     links:
       - php
-    # network_mode: "host"
     networks:
       - mynetwork
 
@@ -28,43 +20,29 @@ services:
     image: kumargowtham/nginx_php_python_node:v6
     container_name: php_container1
     volumes:
-      - /root/code/:/var/www/
-      # - /d/projects/code/work/php/:/var/www/
-      # - /d/projects/code/php/conffiles/dms_scm_config.php:/var/www/dms.mi.com/config/scm_config.php
-      # - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      # - ./conf/nginx/sites-enabled/:/etc/nginx/conf.d/vhosts/sites-enabled/
+      - ${PHP_CODE_PATH}/:/var/www/
     networks:
       - mynetwork
-  # react:
-  #   image: react
-  #   ports:
-  #     - '3000:3000'
-  #   volumes:
-  #     - /d/projects/study/react/ecom3-ui:/app
+
   db:
     image: mysql:8.0
     container_name: db_container1
     restart: always
     environment: 
       MYSQL_DATABASE: 'db'
-      #So you dont have to use root. you can use if you like to use
       MYSQL_USER: 'user'
-      #you can use whatever password you like
       MYSQL_PASSWORD: 'pwd'
-      #password for root access
       MYSQL_ROOT_PASSWORD: 'root'
     command: --bind-address='0.0.0.0'
     ports:
-      #ports exposed
       - '3306:3306'
     expose:
-      #ports open 3306 on the container
       - '3306'
-      #where our data will be persisted                                                                                
     volumes:
       - ./mysql_data:/var/lib/mysql
     networks:
       - mynetwork
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -76,47 +54,14 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 8081:80
+      - "8081:80"
     volumes:
       - ./conf/pma/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
     networks:
       - mynetwork
 
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes: 
-  #     - ./certbot/conf:/etc/letsencrypt
-  #     - ./certbot/www:/var/www/html
-  #   command: certonly -v --webroot -w /var/www/html --force-renewal --email bestbuddiesstoreonline@gmail.com -d bbkart.co.in --agree-tos
-  #   links:
-  #     - web
-  #   networks:
-  #     - mynetwork
-  
-  # cron:
-  #   build: ./cron
-  #   image: cron
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ./:/workdir:ro
-  #   depends_on:
-  #     - web
-  #     - certbot
-  #   networks:
-  #     - mynetwork
-
-  # mongo:
-
-  # redis:
-#Names our volumes
 volumes:
   my-db:
-  # nginx_ssl:
-  #   external: true
-  # certbot_certs:
-  #   external: true
-  # wpsite_certbot:
 
 networks:
   mynetwork:
